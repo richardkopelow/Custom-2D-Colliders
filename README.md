@@ -1,5 +1,5 @@
 # Custom 2D Colliders
-A set of custom 2D colliders for Unity.
+This is a project based off [GuyQuad](https://github.com/GuyQuad)'s, it seems that he is not maintaining it anymore so I am keeping it alive. A set of custom 2D colliders for Unity.
 
 ## Preview
 <a title="Preview" href="https://www.youtube.com/watch?v=v6FlvXqluYA&list=PLuCGxF1wPog7dYSQ3B8p1gvzBBMp7xsAQ" target="_blank">
