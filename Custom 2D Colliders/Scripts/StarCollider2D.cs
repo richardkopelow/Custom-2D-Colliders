@@ -51,13 +51,11 @@ public class StarCollider2D : MonoBehaviour {
     [HideInInspector]
     public bool advanced = false;
 
-    Vector2 origin, center;
+    Vector2 center;
     
     public Vector2[] getPoints()
     {
         List<Vector2> pts = new List<Vector2>();
-
-        origin = transform.localPosition;
 
         float ang = rotation;
 

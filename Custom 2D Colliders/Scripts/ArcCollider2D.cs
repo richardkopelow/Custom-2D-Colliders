@@ -55,20 +55,15 @@ public class ArcCollider2D : MonoBehaviour {
     [HideInInspector]
     public bool advanced = false;
     
-    Vector2 origin, center;
-    
     public Vector2[] getPoints(Vector2 off)
     {
         List<Vector2> points = new List<Vector2>();
-
-        origin = transform.localPosition;
-        center = origin + off;
         
         float ang = offsetRotation;
 
         if (pizzaSlice && totalAngle % 360 != 0)
         {
-            points.Add(center);
+            points.Add(Vector2.zero);
         }
 
         for (int i = 0; i <= smoothness; i++)
@@ -91,8 +86,6 @@ public class ArcCollider2D : MonoBehaviour {
                 points.Add(new Vector2(x, y));
             }
         }
-
-        if (pizzaSlice && totalAngle % 360 != 0) points.Add(center);
 
         return points.ToArray();
     }
