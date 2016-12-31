@@ -54,18 +54,18 @@ public class StarCollider_Editor : Editor {
         GUI.changed = false;
         DrawDefaultInspector();
 
-        sc.rotation = EditorGUILayout.IntSlider("Rotation", sc.rotation, 0, 360 / sc.points);
+        sc.Rotation = EditorGUILayout.IntSlider("Rotation", sc.Rotation, 0, 360 / sc.Points);
 
         sc.advanced = EditorGUILayout.Toggle("Advanced", sc.advanced);
         if (sc.advanced)
         {
-            sc.radiusA = EditorGUILayout.FloatField("RadiusA", sc.radiusA);
-            sc.radiusB = EditorGUILayout.FloatField("RadiusB", sc.radiusB);
+            sc.RadiusA = EditorGUILayout.FloatField("RadiusA", sc.RadiusA);
+            sc.RadiusB = EditorGUILayout.FloatField("RadiusB", sc.RadiusB);
         }
         else
         {
-            sc.radiusA = EditorGUILayout.Slider("RadiusA", sc.radiusA, 1, 25);
-            sc.radiusB = EditorGUILayout.Slider("RadiusB", sc.radiusB, 1, 25);
+            sc.RadiusA = EditorGUILayout.Slider("RadiusA", sc.RadiusA, 1, 25);
+            sc.RadiusB = EditorGUILayout.Slider("RadiusB", sc.RadiusB, 1, 25);
         }
 
 

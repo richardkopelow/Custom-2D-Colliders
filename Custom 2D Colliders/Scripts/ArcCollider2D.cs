@@ -26,36 +26,33 @@ You can contact me by email at guyquad27@gmail.com or on Reddit at https://www.r
 */
 
 
-#if UNITY_EDITOR
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [AddComponentMenu("Physics 2D/Arc Collider 2D")]
+public class ArcCollider2D : CustomCollider2D {
 
-[RequireComponent(typeof(PolygonCollider2D))]
-public class ArcCollider2D : MonoBehaviour {
-
-    [Range(1, 25), HideInInspector]
-    public float radius = 3;
-    [Range(1, 25), HideInInspector]
-    public float Thickness = 0.4f;
-    [Range(10,90)]
-    public int smoothness = 24;
-
-    [Range(10, 360)]
-    public int totalAngle = 360;
-
-    [Range(0, 360)]
-    public int offsetRotation = 0;
-
-    [Header("Let there be Pizza")]
-    public bool pizzaSlice;
-
+    [Range(1, 25), HideInInspector, SerializeField]
+    private float radius = 3;
+    public float Radius { get { return radius; } set { radius = value; updateCollider(); } }
+    [Range(1, 25), HideInInspector, SerializeField]
+    private float thickness = 0.4f;
+    public float Thickness { get { return thickness; } set { thickness = value; updateCollider(); } }
+    [Range(0, 360), SerializeField]
+    private float totalAngle = 360;
+    public float TotalAngle { get { return totalAngle; } set { totalAngle = value; updateCollider(); } }
+    [Range(0, 360), SerializeField]
+    private float offsetRotation = 0;
+    public float OffsetRotation { get { return offsetRotation; } set { offsetRotation = value; updateCollider(); } }
+    [Header("Let there be Pizza"), SerializeField]
+    private bool pizzaSlice;
+    public bool PizzaSlice { get { return pizzaSlice; } set { pizzaSlice = value; updateCollider(); } }
     [HideInInspector]
     public bool advanced = false;
-    
-    public Vector2[] getPoints(Vector2 off)
+
+    public override Vector2[] getPoints()
     {
         List<Vector2> points = new List<Vector2>();
         
@@ -80,8 +77,8 @@ public class ArcCollider2D : MonoBehaviour {
             for (int i = 0; i <= smoothness; i++)
             {
                 ang -= (float)totalAngle / smoothness;
-                float x = (radius - Thickness) * Mathf.Cos(ang * Mathf.Deg2Rad);
-                float y = (radius - Thickness) * Mathf.Sin(ang * Mathf.Deg2Rad);
+                float x = (radius - thickness) * Mathf.Cos(ang * Mathf.Deg2Rad);
+                float y = (radius - thickness) * Mathf.Sin(ang * Mathf.Deg2Rad);
 
                 points.Add(new Vector2(x, y));
             }
@@ -90,4 +87,3 @@ public class ArcCollider2D : MonoBehaviour {
         return points.ToArray();
     }
 }
-#endif

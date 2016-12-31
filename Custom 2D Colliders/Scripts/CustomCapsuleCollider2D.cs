@@ -25,38 +25,36 @@ SOFTWARE.
 You can contact me by email at guyquad27@gmail.com or on Reddit at https://www.reddit.com/user/GuyQuad
 */
 
-
-#if UNITY_EDITOR
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 [AddComponentMenu("Physics 2D/CustomCapsule Collider 2D")]
+public class CustomCapsuleCollider2D : CustomCollider2D {
 
-[RequireComponent(typeof(PolygonCollider2D))]
-public class CustomCapsuleCollider2D : MonoBehaviour {
+    [HideInInspector, SerializeField]
+    private bool bullet = false, flip = false;
+    public bool Bullet { get { return bullet; } set { bullet = value; updateCollider(); } }
+    public bool Flip { get { return flip; } set { flip = value; updateCollider(); } }
+    [HideInInspector]
+    [Range(.5f, 25), SerializeField]
+    private float radius = 1;
+    public float Radius { get { return radius; } set { radius = value; updateCollider(); } }
+    [Range(1, 25), SerializeField]
+    private float height = 4;
+    public float Height { get { return height; } set { height = value; updateCollider(); } }
+    [Range(0, 180), SerializeField]
+    private float rotation = 0;
+    public float Rotation { get { return rotation; } set { rotation = value;  updateCollider(); } }
 
     [HideInInspector]
-    public bool bullet = false, flip = false;
+    public bool advanced = false;
 
-    [HideInInspector]
-    [Range(.5f, 25)]
-    public float radius = 1;
-
-    [Range(1, 25)]
-    public float height = 4;
-
-    [Range(10,90)]
-    public int smoothness = 20;
-
-    [Range(0, 180)]
-    public int rotation = 0;
-    
     Vector2 center, center1, center2;
     List<Vector2> points;
     float ang = 0;
 
-    public Vector2[] getPoints()
+    public override Vector2[] getPoints()
     {
         points = new List<Vector2>();
 
@@ -130,4 +128,3 @@ public class CustomCapsuleCollider2D : MonoBehaviour {
         points.Add(new Vector2(x, y));
     }
 }
-#endif

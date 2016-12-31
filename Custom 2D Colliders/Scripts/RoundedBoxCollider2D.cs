@@ -26,7 +26,6 @@ You can contact me by email at guyquad27@gmail.com or on Reddit at https://www.r
 */
 
 
-#if UNITY_EDITOR
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,33 +33,33 @@ using System.Collections.Generic;
 [AddComponentMenu("Physics 2D/Rounded Box Collider 2D")]
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public class RoundedBoxCollider2D : MonoBehaviour {
+public class RoundedBoxCollider2D : CustomCollider2D {
+
+    [Range(.2f, 25), HideInInspector, SerializeField]
+    private float height = 2;
+    public float Height { get { return height; } set { height = value; updateCollider(); } }
+
+    [Range(.2f, 25), HideInInspector, SerializeField]
+    private float width = 2;
+    public float Width { get { return width; } set { width = value;  updateCollider(); } }
+
+    [HideInInspector, SerializeField]
+    private float radius = .5f, wt, wb;
+    public float Radius { get { return radius; } set { radius = value; updateCollider(); } }
     
-    [Range(10, 90)]
-    public int smoothness = 15;
-
-    [Range(.2f, 25), HideInInspector]
-    public float height = 2;
-
-    [Range(.2f, 25), HideInInspector]
-    public float width = 2;
-
-    [HideInInspector]
-    public float radius = .5f, wt, wb;
-    
-    [Range(0.05f, .95f)]
-    public float trapezoid = .5f;
-
-    [HideInInspector]
-    public Vector2 offset, center1, center2, center3, center4;
+    [Range(0.05f, .95f), SerializeField]
+    private float trapezoid = .5f;
+    public float Trapezoid { get { return trapezoid; } set { trapezoid = value; updateCollider(); } }
 
     [HideInInspector]
     public bool advanced = false;
 
+    private Vector2 center1, center2, center3, center4;
+
     float ang = 0;
     List<Vector2> points;
 
-    public Vector2[] getPoints()
+    public override Vector2[] getPoints()
     {
         points = new List<Vector2>();
         points.Clear();
@@ -170,8 +169,8 @@ public class RoundedBoxCollider2D : MonoBehaviour {
         for (int i = 0; i <= smoothness; i++)
         {
             float a = ang * Mathf.Deg2Rad;
-            float x = ctr.x - offset.x + radius * Mathf.Cos(a);
-            float y = ctr.y - offset.y + radius * Mathf.Sin(a);
+            float x = ctr.x + radius * Mathf.Cos(a);
+            float y = ctr.y + radius * Mathf.Sin(a);
 
             points.Add(new Vector2(x, y));
             ang += totAngle / smoothness;
@@ -180,4 +179,3 @@ public class RoundedBoxCollider2D : MonoBehaviour {
         ang -= 90f / smoothness;
     }
 }
-#endif

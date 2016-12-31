@@ -26,34 +26,32 @@ You can contact me by email at guyquad27@gmail.com or on Reddit at https://www.r
 */
 
 
-#if UNITY_EDITOR
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 [AddComponentMenu("Physics 2D/Ellipse Collider 2D")]
+public class EllipseCollider2D : CustomCollider2D
+{
 
-[RequireComponent(typeof(PolygonCollider2D))]
-public class EllipseCollider2D : MonoBehaviour {
+    [Range(1, 25), HideInInspector, SerializeField]
+    private float radiusX = 1, radiusY = 2;
+    public float RadiusX { get { return radiusX; } set { radiusX = value; updateCollider(); } }
+    public float RadiusY { get { return radiusY; } set { radiusY = value; updateCollider(); } }
 
-    [Range(1, 25), HideInInspector]
-    public float radiusX = 1, radiusY = 2;
-
-    [Range(10,90)]
-    public int smoothness = 30;
-
-    [Range(0, 180)]
-    public int rotation = 0;
+    [Range(0, 180), SerializeField]
+    private float rotation = 0;
+    public float Rotation { get { return rotation; } set { rotation = value; updateCollider(); } }
 
     [HideInInspector]
     public bool advanced = false;
 
     Vector2 origin, center;
-    
-    public Vector2[] getPoints()
+
+    public override Vector2[] getPoints()
     {
         List<Vector2> points = new List<Vector2>();
-        
+
         float ang = 0;
         float o = rotation * Mathf.Deg2Rad;
 
@@ -74,11 +72,10 @@ public class EllipseCollider2D : MonoBehaviour {
             float y = -radiusX * Mathf.Cos(a) * Mathf.Sin(o) - radiusY * Mathf.Sin(a) * Mathf.Cos(o);
 
             points.Add(new Vector2(x, y));
-            ang += 360f/smoothness;
+            ang += 360f / smoothness;
         }
 
         points.RemoveAt(0);
         return points.ToArray();
     }
 }
-#endif

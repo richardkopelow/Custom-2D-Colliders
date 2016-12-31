@@ -46,7 +46,7 @@ public class ArcCollider_Editor : Editor {
             ac.gameObject.AddComponent<PolygonCollider2D>();
             polyCollider = ac.GetComponent<PolygonCollider2D>();
         }
-        polyCollider.points = ac.getPoints(polyCollider.offset);
+        polyCollider.points = ac.getPoints();
     }
 
     public override void OnInspectorGUI()
@@ -57,13 +57,13 @@ public class ArcCollider_Editor : Editor {
         ac.advanced = EditorGUILayout.Toggle("Advanced", ac.advanced);
         if (ac.advanced)
         {
-            ac.radius = EditorGUILayout.FloatField("Radius", ac.radius);
+            ac.Radius = EditorGUILayout.FloatField("Radius", ac.Radius);
         }
         else
         {
-            ac.radius = EditorGUILayout.Slider("Radius", ac.radius, 1, 25);
+            ac.Radius = EditorGUILayout.Slider("Radius", ac.Radius, 1, 25);
         }
-        if (!ac.pizzaSlice)
+        if (!ac.PizzaSlice)
         {
             if (ac.advanced)
             {
@@ -77,7 +77,7 @@ public class ArcCollider_Editor : Editor {
 
         if (GUI.changed || !off.Equals(polyCollider.offset))
         {
-            polyCollider.points = ac.getPoints(polyCollider.offset);
+            polyCollider.points = ac.getPoints();
         }
         off = polyCollider.offset;
     }

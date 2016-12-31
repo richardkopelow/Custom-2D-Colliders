@@ -34,26 +34,30 @@ using System.Collections.Generic;
 [AddComponentMenu("Physics 2D/Star Collider 2D")]
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public class StarCollider2D : MonoBehaviour {
+public class StarCollider2D : CustomCollider2D {
 
-    [Range(1, 25), HideInInspector]
-    public float radiusA = 1;
+    [Range(1, 25), HideInInspector, SerializeField]
+    private float radiusA = 1;
+    public float RadiusA { get { return radiusA; } set { radiusA = value;  updateCollider(); } }
 
-    [Range(1, 25), HideInInspector]
-    public float radiusB = 2;
+    [Range(1, 25), HideInInspector, SerializeField]
+    private float radiusB = 2;
+    public float RadiusB { get { return radiusB; } set { radiusB = value; updateCollider(); } }
 
-    [Range(3,36)]
-    public int points = 5;
+    [Range(3,36), SerializeField]
+    private int points = 5;
+    public int Points { get { return points; } set { points = value; updateCollider(); } }
     
-    [HideInInspector]
-    public int rotation = 0;
+    [HideInInspector, SerializeField]
+    private int rotation = 0;
+    public int Rotation { get { return rotation; } set { rotation = value; updateCollider(); } }
 
     [HideInInspector]
     public bool advanced = false;
 
     Vector2 center;
     
-    public Vector2[] getPoints()
+    public override Vector2[] getPoints()
     {
         List<Vector2> pts = new List<Vector2>();
 

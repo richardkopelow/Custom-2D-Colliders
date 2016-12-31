@@ -55,13 +55,22 @@ public class CustomCapsuleCollider2D_Editor : Editor {
         GUI.changed = false;
         DrawDefaultInspector();
 
-        capCol.radius = Mathf.Clamp(capCol.radius, 0.5f, capCol.height / 2);
-        capCol.radius = EditorGUILayout.Slider("Radius", capCol.radius, 0.25f, capCol.height / 2f);
+        capCol.Bullet = EditorGUILayout.Toggle("Bullet", capCol.Bullet);
+        if(capCol.Bullet) capCol.Flip = EditorGUILayout.Toggle("Flip", capCol.Flip);
 
-        GUILayout.Space(8);
-        capCol.bullet = EditorGUILayout.Toggle("Bullet", capCol.bullet);
-        if(capCol.bullet) capCol.flip = EditorGUILayout.Toggle("Flip", capCol.flip);
-
+        capCol.advanced = EditorGUILayout.Toggle("Advanced", capCol.advanced);
+        if (capCol.advanced)
+        {
+            capCol.Height = EditorGUILayout.FloatField("Height", capCol.Height);
+            capCol.Radius = Mathf.Clamp(capCol.Radius, 0f, capCol.Height / 2);
+            capCol.Radius = EditorGUILayout.FloatField("Radius", capCol.Radius);
+        }
+        else
+        {
+            capCol.Height = EditorGUILayout.Slider("Height", capCol.Height, 1, 25);
+            capCol.Radius = Mathf.Clamp(capCol.Radius, 0f, capCol.Height / 2);
+            capCol.Radius = EditorGUILayout.Slider("Radius", capCol.Radius, 0.25f, capCol.Height / 2f);
+        }
 
         if (GUI.changed || !off.Equals(polyCollider.offset))
         {
